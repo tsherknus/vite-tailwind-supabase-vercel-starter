@@ -9,6 +9,7 @@ import NotFoundPage from "../pages/misc/NotFoundPage.tsx";
 import AppLayout from "../layout/AppLayout.tsx";
 import {PublicRoute} from "./PublicRoute.tsx";
 import ProfilePage from "../pages/profile/ProfilePage.tsx";
+import PricingPage from "../pages/pricing/PricingPage.tsx";
 
 export function AppRoutes() {
     return (
@@ -17,6 +18,7 @@ export function AppRoutes() {
                 <Route path="/login" element={<AppLayout><PublicRoute><LoginPage/></PublicRoute></AppLayout>}/>
                 <Route path="/register" element={<AppLayout><PublicRoute><RegisterPage/></PublicRoute></AppLayout>}/>
                 <Route path="/verify-email" element={<AppLayout><PublicRoute><VerifyEmailPage/></PublicRoute></AppLayout>}/>
+                <Route path="/pricing" element={<AppLayout><PublicRoute><PricingPage/></PublicRoute></AppLayout>}/>
 
                 <Route path="/" element={<AppLayout><LandingPage/></AppLayout>}/>
                 <Route path="/dashboard" element={<AppLayout><PrivateRoute><DashboardPage/></PrivateRoute></AppLayout>}/>

@@ -19,8 +19,10 @@ function AppLayout({ children }: { children: React.ReactNode }) {
                     </div>
                     <div>
                         { !loading && (session ?
-                            <div className="flex flex-row items-center">{location.pathname === "/" && <div><button className="mr-1" onClick={() => navigate("/dashboard")}>Dashboard</button></div>}<div className="p-2 bg-black rounded-full"><Link to="/profile"><IoPerson color="white" size={24}/></Link></div></div>:
-                            <div>{location.pathname !== "/login" && <button onClick={() => navigate("/login")}>Login</button>}</div>)
+                            <div className="flex flex-row items-center">{location.pathname === "/" && <div><button className="p-3 rounded-sm bg-gray-900 hover:bg-gray-800 hover:ring-1 ring-gray-400 active:bg-gray-800 active:ring-1 active:ring-gray-400
+                        hover:transition-colors duration-150 ease-out" onClick={() => navigate("/dashboard")}>Dashboard</button></div>}<div className="p-2 bg-black rounded-full ml-4"><Link to="/profile"><IoPerson color="white" size={24}/></Link></div></div>:
+                            <div>{location.pathname !== "/login" && <button className="p-3 rounded-sm bg-gray-900 hover:bg-gray-800 hover:ring-1 ring-gray-400 active:bg-gray-800 active:ring-1 active:ring-gray-400
+                        hover:transition-colors duration-150 ease-out" onClick={() => navigate("/login")}>Login</button>}</div>)
                         }
                     </div>
                 </div>
