@@ -10,6 +10,12 @@ import AppLayout from "../layout/AppLayout.tsx";
 import {PublicRoute} from "./PublicRoute.tsx";
 import ProfilePage from "../pages/profile/ProfilePage.tsx";
 import PricingPage from "../pages/pricing/PricingPage.tsx";
+import {PrivateFreeRoute} from "./PrivateFreeRoute.tsx";
+import FreePage from "../pages/free/FreePage.tsx";
+import {PrivateProRoute} from "./PrivateProRoute.tsx";
+import ProPage from "../pages/pro/ProPage.tsx";
+import {PrivateStarterRoute} from "./PrivateStarterRoute.tsx";
+import StarterPage from "../pages/starter/StarterPage.tsx";
 
 export function AppRoutes() {
     return (
@@ -25,6 +31,12 @@ export function AppRoutes() {
                 <Route path="/profile" element={<AppLayout><PrivateRoute><ProfilePage/></PrivateRoute></AppLayout>}/>
 
                 <Route path="*" element={<NotFoundPage/>}/>
+
+                <Route path="/free" element={<AppLayout><PrivateFreeRoute><FreePage/></PrivateFreeRoute></AppLayout>}></Route>
+
+                <Route path="/starter" element={<AppLayout><PrivateStarterRoute><StarterPage/></PrivateStarterRoute></AppLayout>}></Route>
+
+                <Route path="/pro" element={<AppLayout><PrivateProRoute><ProPage/></PrivateProRoute></AppLayout>}></Route>
             </Routes>
         </BrowserRouter>
     )
