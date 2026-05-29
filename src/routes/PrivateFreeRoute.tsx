@@ -1,6 +1,6 @@
 import { useAuth } from "../context/AuthContext";
 import {Navigate} from "react-router-dom";
-import type {ReactNode} from "react";
+import {type ReactNode} from "react";
 
 interface PrivateFreeRouteProps {
     children: ReactNode;
@@ -21,3 +21,5 @@ export function PrivateFreeRoute({ children }: PrivateFreeRouteProps) {
     // User is logged in → render the requested page
     return children;
 }
+
+export default PrivateFreeRoute;

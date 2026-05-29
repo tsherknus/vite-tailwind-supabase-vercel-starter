@@ -1,4 +1,5 @@
 import { useAuth } from "../context/AuthContext";
+
 import type {ReactNode} from "react";
 
 interface PublicRouteProps {
@@ -15,3 +16,5 @@ export function PublicRoute({ children }: PublicRouteProps) {
     // User is logged in → render the requested page
     return children;
 }
+
+export default PublicRoute;

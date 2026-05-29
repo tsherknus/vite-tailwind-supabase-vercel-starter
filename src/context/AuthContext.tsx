@@ -5,6 +5,7 @@ import type {Session} from "@supabase/supabase-js";
 export interface AuthContextType {
     session: Session | null;
     loading: boolean;
+    subscription: string | null;
     signIn: (
         email: string,
         password: string
@@ -21,6 +22,7 @@ const AuthContext = createContext(undefined)
 export function AuthContextProvider({children}: PropsWithChildren) {
     const [session, setSession] = useState<Session | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
+    const [subscription, setSubscription] = useState<string | null>(null)
 
     const signIn = async (email: string, password: string) => {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -57,6 +59,20 @@ export function AuthContextProvider({children}: PropsWithChildren) {
         return {success: true, data}
     }
 
+    async function fetchSubscription() {
+        const { data, error } = await supabase
+            .from("user_info")
+            .select("subscription_type, paid")
+
+        if (error) throw error
+
+        if (data[0].paid) {
+            setSubscription(data[0].subscription_type)
+        } else {
+            setSubscription('free')
+        }
+    }
+
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
@@ -67,11 +83,13 @@ export function AuthContextProvider({children}: PropsWithChildren) {
             setSession(session)
             setLoading(false)
         });
+
+        fetchSubscription()
     }, []);
 
     return (
         // @ts-ignore
-        <AuthContext.Provider value={{ session, loading, signIn, signOut, signUp }}>
+        <AuthContext.Provider value={{ session, loading, subscription, signIn, signOut, signUp }}>
             {children}
         </AuthContext.Provider>
     )

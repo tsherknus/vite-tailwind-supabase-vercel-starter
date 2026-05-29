@@ -2,7 +2,7 @@ import {Link, Navigate, useNavigate} from "react-router-dom";
 import {type FormEvent, useState} from "react";
 import {useAuth} from "../../context/AuthContext.tsx";
 
-function LoginPage() {
+function CreateAccountPage() {
     const { signIn } = useAuth()
     const navigate = useNavigate()
 
@@ -42,7 +42,7 @@ function LoginPage() {
         <div className="flex flex-col justify-center m-10">
             <form onSubmit={handleLogin}>
                 <h2 className="font-bold pb-2">Login</h2>
-                <p>Need to create an account? <Link to="/register">Sign Up</Link></p>
+                <p>Need to create an account? <Link to="/pricing">Sign Up</Link></p>
                 {signInError && <div><p>There was a problem signing in:</p><p>{signInError}</p></div>}
                 <div className="flex flex-col py-4">
                     <input className="p-3 mt-2 bg-[#525050] rounded" type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -55,4 +55,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage;
+export default CreateAccountPage;

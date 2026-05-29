@@ -1,13 +1,13 @@
 import { useAuth } from "../context/AuthContext";
 import {Navigate} from "react-router-dom";
-import type {ReactNode} from "react";
+import {type ReactNode} from "react";
 
 interface PrivateStarterRouteProps {
     children: ReactNode;
 }
 
 export function PrivateStarterRoute({ children }: PrivateStarterRouteProps) {
-    const { session, loading } = useAuth(); // your auth state
+    const { session, loading, subscription } = useAuth(); // your auth state
 
     if (loading) {
         return <div>Loading...</div>; // or spinner
@@ -17,6 +17,14 @@ export function PrivateStarterRoute({ children }: PrivateStarterRouteProps) {
         return <Navigate to="/login" replace/>;
     }
 
-    // User is logged in → render the requested page
-    return children;
+    console.log(subscription)
+
+    if (subscription === 'starter' || subscription === 'pro') {
+        // User is logged in → render the requested page
+        return children;
+    } else {
+        return <Navigate to="/upgrade-starter" replace/>;
+    }
 }
+
+export default PrivateStarterRoute;

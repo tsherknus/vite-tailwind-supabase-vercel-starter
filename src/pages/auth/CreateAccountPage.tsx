@@ -1,13 +1,14 @@
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext.tsx";
 import {type FormEvent, useState} from "react";
 
-function RegisterPage() {
+function CreateAccountPage() {
     const {signUp, session} = useAuth()
     const navigate = useNavigate();
-
+    const [searchParams] = useSearchParams();
+    const subscription = searchParams.get("subscription");
     const [loading, setLoading] = useState<boolean>(false);
-    const [signupError, setSignupError] = useState<String | null>(null);
+    const [signupError, setSignupError] = useState<string | null>(null);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
@@ -21,7 +22,15 @@ function RegisterPage() {
 
             if (error) throw error
 
-            navigate("/verify-email")
+            // if the user is signing up for pro or starter pass them through to stripe
+            // else navigate to the verify email step
+            if (subscription === 'pro') {
+                navigate("/stripe-pro")
+            } else if (subscription === 'starter') {
+                navigate("/stripe-starter")
+            } else {
+                navigate("/verify-email")
+            }
         } catch (err) {
             if (err instanceof Error) {
                 setSignupError(err.message)
@@ -52,4 +61,4 @@ function RegisterPage() {
         </div>
     )
 }
-export default RegisterPage;
+export default CreateAccountPage;

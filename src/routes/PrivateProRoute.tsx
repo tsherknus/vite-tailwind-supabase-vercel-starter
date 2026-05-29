@@ -7,7 +7,7 @@ interface PrivateProRouteProps {
 }
 
 export function PrivateProRoute({ children }: PrivateProRouteProps) {
-    const { session, loading } = useAuth(); // your auth state
+    const { session, loading, subscription } = useAuth(); // your auth state
 
     if (loading) {
         return <div>Loading...</div>; // or spinner
@@ -18,6 +18,12 @@ export function PrivateProRoute({ children }: PrivateProRouteProps) {
         return <Navigate to="/login" replace/>;
     }
 
+    if (subscription !== 'pro') {
+        return <Navigate to="/upgrade-pro" replace/>;
+    }
+
     // User is logged in → render the requested page
     return children;
 }
+
+export default PrivateProRoute;
